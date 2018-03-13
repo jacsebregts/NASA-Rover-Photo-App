@@ -1,5 +1,6 @@
-package android.programmeren.jacsebregts.nasaroverphotoapp;
+package android.programmeren.jacsebregts.nasaroverphotoapp.controllers;
 
+import android.programmeren.jacsebregts.nasaroverphotoapp.R;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
