@@ -5,6 +5,8 @@ import java.sql.Date;
 
 public class Photo implements Serializable {
 
+    private static final String TAG = "Photo";
+
     private int id;
     private int sol;
     private String cameraName;

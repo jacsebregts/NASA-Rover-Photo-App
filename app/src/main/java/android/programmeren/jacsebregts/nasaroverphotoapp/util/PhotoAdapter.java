@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
 
+    private static final String TAG = "PhotoAdapter";
+
     private ArrayList photos;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

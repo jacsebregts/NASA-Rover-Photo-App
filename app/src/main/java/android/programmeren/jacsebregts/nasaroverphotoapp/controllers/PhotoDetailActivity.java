@@ -14,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 public class PhotoDetailActivity extends AppCompatActivity {
 
+    private static final String TAG = "PhotoDetailActivity";
+
     private Photo photo;
 
     @Override
@@ -24,7 +26,7 @@ public class PhotoDetailActivity extends AppCompatActivity {
         setupActionBar();
 
         Intent extras = getIntent();
-        Photo photo = (Photo) extras.getSerializableExtra("PHOTO");
+        photo = (Photo) extras.getSerializableExtra("PHOTO");
 
         ImageView imageViewPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
         TextView textViewImageID = (TextView) findViewById(R.id.textViewImageID);

@@ -29,6 +29,11 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
     private OnPhotoAvailable listener = null;
     private ProgressDialog progressDialog;
 
+    public PhotoSearchTask(OnPhotoAvailable listener, Context context) {
+        this.listener = listener;
+        this.context = context;
+    }
+
 //    @Override
 //    protected void onPreExecute() {
 //        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.text_fetching_title), context.getResources().getString(R.string.text_fetching_message), true);
@@ -84,7 +89,7 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
             jsonObject = new JSONObject(response);
             JSONArray photosArray = jsonObject.getJSONArray("photos");
 
-            for (int i = 0; i < photosArray.length(); i++) {
+            for (int i = 0; i < 25; i++) {
                 JSONObject photoObject = photosArray.getJSONObject(i);
 
                 int photoID = photoObject.getInt("id");
