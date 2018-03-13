@@ -5,6 +5,7 @@ import android.programmeren.jacsebregts.nasaroverphotoapp.R;
 import android.programmeren.jacsebregts.nasaroverphotoapp.controllers.PhotoDetailActivity;
 import android.programmeren.jacsebregts.nasaroverphotoapp.domain.Photo;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
+            Log.d(TAG, "onClick was called.");
+
             int position = getAdapterPosition();
             Photo p = (Photo) photos.get(position);
 
@@ -54,7 +57,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     @Override
     public PhotoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d(TAG, "onCreateViewHolder was called.");
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
         View view = inflater.inflate(R.layout.view_row_item, parent, false);
 
         ViewHolder vh = new ViewHolder(view);
@@ -63,17 +69,21 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(PhotoAdapter.ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder was called.");
+
         Photo photo = (Photo) this.photos.get(position);
 
         Picasso.with(holder.view.getContext())
                 .load(photo.getImageURL())
                 .into(holder.imageViewPhoto);
 
-        holder.textViewImageID.setText(String.valueOf(photo.getId()));
+        holder.textViewImageID.setText("Image ID: " + String.valueOf(photo.getId()));
     }
 
     @Override
     public int getItemCount() {
+        Log.i(TAG, "getItemCount was called.");
+
         return photos.size();
     }
 }

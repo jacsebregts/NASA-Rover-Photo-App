@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">NASA Rover Photo App</string>
-    <string name="title_activity_photo_detail">PhotoDetailActivity</string>
+    <string name="app_name" translatable="false">NASA Rover Photo App</string>
+    <string name="title_activity_photo_detail" translatable="false">PhotoDetailActivity</string>
+    <string name="imageID">Image ID: </string>
 </resources>

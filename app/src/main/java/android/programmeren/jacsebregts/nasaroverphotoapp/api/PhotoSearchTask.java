@@ -41,6 +41,8 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        Log.d(TAG, "doInBackground was called.");
+
         InputStream inputStream = null;
         int responseCode = -1;
         String movieUrl = strings[0];
@@ -114,6 +116,7 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
     }
 
     private static String getStringFromInputStream(InputStream is) {
+        Log.d(TAG, "getStringFromInputStream was called.");
 
         BufferedReader br = null;
         StringBuilder sb = new StringBuilder();

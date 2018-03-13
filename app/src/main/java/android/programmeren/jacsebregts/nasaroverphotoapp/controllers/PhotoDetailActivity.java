@@ -7,6 +7,7 @@ import android.programmeren.jacsebregts.nasaroverphotoapp.domain.Photo;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ public class PhotoDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate was called.");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_detail);
 
@@ -39,10 +42,14 @@ public class PhotoDetailActivity extends AppCompatActivity {
     }
 
     private void setupActionBar() {
+        Log.d(TAG, "setupActionBar was called.");
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        Log.d(TAG, "setupActionBar was executed.");
     }
 }

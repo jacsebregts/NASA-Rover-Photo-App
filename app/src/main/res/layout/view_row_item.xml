@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:padding="10dp">
+    android:layout_height="150dp"
+    android:paddingTop="10dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="0dp">
 
     <ImageView
         android:id="@+id/imageViewPhoto"
@@ -19,14 +22,18 @@
 
     <TextView
         android:id="@+id/textViewImageID"
-        android:layout_width="112dp"
-        android:layout_height="20dp"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kadwa"
         android:gravity="right"
         android:textAlignment="gravity"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.968"

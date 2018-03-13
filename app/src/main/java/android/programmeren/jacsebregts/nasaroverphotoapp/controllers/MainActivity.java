@@ -26,8 +26,12 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate was called.");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d(TAG, "content was loaded.");
 
         this.setTitle("NASA Rover Photos");
 
@@ -46,10 +50,16 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable 
     @Override
     public void onPhotoAvailable(Photo photo) {
         Log.d(TAG, "onPhotoAvailable: " + photo.getImageURL());
+
+        photoList.add(photo);
+        photoAdapter.notifyDataSetChanged();
     }
 
     public void getPictures() {
-        String[] urls = new String[]{"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=mast&api_key=NO9JaYBrPOhgwVsv08W4EE9CHkTn3ZyIxY9M96sp"};
+        Log.d(TAG, "getPictures was called.");
+
+        String[] urls = new String[]
+                {"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=NO9JaYBrPOhgwVsv08W4EE9CHkTn3ZyIxY9M96sp"};
         PhotoSearchTask findPhotos = new PhotoSearchTask(this, this);
         findPhotos.execute(urls);
     }
