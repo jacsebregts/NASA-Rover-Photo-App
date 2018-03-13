@@ -3,8 +3,8 @@ package android.programmeren.jacsebregts.nasaroverphotoapp.api;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.programmeren.jacsebregts.nasaroverphotoapp.api.interfaces.OnPhotoAvailable;
 import android.programmeren.jacsebregts.nasaroverphotoapp.domain.Photo;
-import android.programmeren.jacsebregts.nasaroverphotoapp.R;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -29,10 +29,10 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
     private OnPhotoAvailable listener = null;
     private ProgressDialog progressDialog;
 
-    @Override
-    protected void onPreExecute() {
-        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.text_fetching_title), context.getResources().getString(R.string.text_fetching_message), true);
-    }
+//    @Override
+//    protected void onPreExecute() {
+//        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.text_fetching_title), context.getResources().getString(R.string.text_fetching_message), true);
+//    }
 
     @Override
     protected String doInBackground(String... strings) {
@@ -101,10 +101,11 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
             }
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException ex) {
+            Log.e(TAG, "onPostExecute JSONException " + ex.getLocalizedMessage());
+
         }
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
 
     private static String getStringFromInputStream(InputStream is) {
