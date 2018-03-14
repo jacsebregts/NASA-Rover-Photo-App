@@ -28,7 +28,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         private ImageView imageViewPhoto;
         private TextView textViewImageID;
 
-        ViewHolder(View v) {
+        public ViewHolder(View v) {
             super(v);
             this.view = v;
             this.view.setOnClickListener(this);
@@ -48,6 +48,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
             photoDetailIntent.putExtra("PHOTO", p);
 
             view.getContext().startActivity(photoDetailIntent);
+
+            Log.d(TAG, "onClick was executed and finalised.");
         }
     }
 

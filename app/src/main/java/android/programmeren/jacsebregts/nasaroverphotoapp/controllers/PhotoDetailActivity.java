@@ -18,6 +18,8 @@ public class PhotoDetailActivity extends AppCompatActivity {
     private static final String TAG = "PhotoDetailActivity";
 
     private Photo photo;
+    private ImageView imageViewPhoto;
+    private TextView textViewCameraName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,14 +33,18 @@ public class PhotoDetailActivity extends AppCompatActivity {
         Intent extras = getIntent();
         photo = (Photo) extras.getSerializableExtra("PHOTO");
 
-        ImageView imageViewPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
-        TextView textViewImageID = (TextView) findViewById(R.id.textViewImageID);
+        Log.d(TAG, "extras was used.");
+
+        imageViewPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
+        textViewCameraName = (TextView) findViewById(R.id.textViewCameraName);
 
         Picasso.with(this)
                 .load(photo.getImageURL())
                 .into(imageViewPhoto);
 
-        textViewImageID.setText(photo.getCameraName());
+        Log.d(TAG, "Picasso was used.");
+
+        textViewCameraName.setText(photo.getCameraName());
     }
 
     private void setupActionBar() {

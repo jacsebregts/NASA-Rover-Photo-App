@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable 
 
         Log.d(TAG, "content was loaded.");
 
-        this.setTitle("NASA Rover Photos");
+        this.setTitle("NASA Mars Rover Photos");
 
         getPictures();
 
