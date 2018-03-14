@@ -3,6 +3,7 @@ package android.programmeren.jacsebregts.nasaroverphotoapp.api;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.programmeren.jacsebregts.nasaroverphotoapp.R;
 import android.programmeren.jacsebregts.nasaroverphotoapp.api.interfaces.OnPhotoAvailable;
 import android.programmeren.jacsebregts.nasaroverphotoapp.domain.Photo;
 import android.util.Log;
@@ -34,10 +35,10 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
         this.context = context;
     }
 
-//    @Override
-//    protected void onPreExecute() {
-//        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.text_fetching_title), context.getResources().getString(R.string.text_fetching_message), true);
-//    }
+    @Override
+    protected void onPreExecute() {
+        progressDialog = ProgressDialog.show(context, "Searching Data", "Searching data from the server.",  true);
+    }
 
     @Override
     protected String doInBackground(String... strings) {
@@ -91,7 +92,7 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
             jsonObject = new JSONObject(response);
             JSONArray photosArray = jsonObject.getJSONArray("photos");
 
-            for (int i = 0; i < 25; i++) {
+            for (int i = 0; i < photosArray.length(); i++) {
                 JSONObject photoObject = photosArray.getJSONObject(i);
 
                 int photoID = photoObject.getInt("id");
@@ -107,12 +108,11 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
 
             }
 
-
         } catch (JSONException ex) {
             Log.e(TAG, "onPostExecute JSONException " + ex.getLocalizedMessage());
 
         }
-//        progressDialog.dismiss();
+        progressDialog.dismiss();
     }
 
     private static String getStringFromInputStream(InputStream is) {

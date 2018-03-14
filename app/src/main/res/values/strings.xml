@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">NASA Rover Photo App</string>
     <string name="title_activity_photo_detail" translatable="false">PhotoDetailActivity</string>
-    <string name="imageID">Image ID: </string>
+
+    <string name="text_fetching_title">Fetching Data</string>
+    <string name="text_fetching_message">Fetching photos from the server</string>
 </resources>
