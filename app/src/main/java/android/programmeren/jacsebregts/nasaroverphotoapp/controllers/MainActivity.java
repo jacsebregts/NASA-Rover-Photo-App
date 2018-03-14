@@ -3,6 +3,7 @@ package android.programmeren.jacsebregts.nasaroverphotoapp.controllers;
 import android.programmeren.jacsebregts.nasaroverphotoapp.R;
 import android.programmeren.jacsebregts.nasaroverphotoapp.api.PhotoSearchTask;
 import android.programmeren.jacsebregts.nasaroverphotoapp.api.interfaces.OnPhotoAvailable;
+import android.programmeren.jacsebregts.nasaroverphotoapp.database.PictureDatabase;
 import android.programmeren.jacsebregts.nasaroverphotoapp.domain.Photo;
 import android.programmeren.jacsebregts.nasaroverphotoapp.util.PhotoAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
     private RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     private ArrayList<Photo> photoList = new ArrayList<>();
 
+    private PictureDatabase pdb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate was called.");
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "content was loaded.");
+
+        pdb = new PictureDatabase(this);
 
         this.setTitle("NASA Mars Rover Photos");
 
@@ -58,6 +63,16 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
 
         photoList.add(photo);
         photoAdapter.notifyDataSetChanged();
+
+//        if (!photoList.contains(photo)) {
+//            photoList.add(photo);
+//            photoAdapter.notifyDataSetChanged();
+//
+//            pdb.addPicture(photo);
+//            Log.d(TAG, photo.getId() + "photo was added to the database.");
+//        } else {
+//            pdb.getAllPictures();
+//        }
     }
 
     public void getPictures() {
