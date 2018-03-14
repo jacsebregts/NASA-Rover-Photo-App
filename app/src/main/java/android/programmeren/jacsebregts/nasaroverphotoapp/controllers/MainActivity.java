@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
 
         photoAdapter = new PhotoAdapter(photoList);
         recyclerView.setAdapter(photoAdapter);
-
-
     }
 
     @Override
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.d(TAG, "onSaveInstanceState is aangeroepen");
+        Log.d(TAG, "onSaveInstanceState was called.");
 
         savedInstanceState.putSerializable("PICTURE", photoList);
 
@@ -85,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
 
     public void getPicturesByCameraView(String cameraView) {
         Log.d(TAG, "getPicturesByCameraView was called.");
+
+        photoList.clear();
 
         if (!cameraView.equals("ALL CAMERAS")) {
             String[] urls = new String[]
@@ -124,8 +124,6 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "onItemSelected was called.");
-
-        boolean check = true;
 
         int size = photoList.size();
         photoList.clear();

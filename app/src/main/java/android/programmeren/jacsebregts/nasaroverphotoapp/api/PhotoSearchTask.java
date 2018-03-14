@@ -37,6 +37,8 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPreExecute() {
+        Log.i(TAG, "onPreExecute was called.");
+
         progressDialog = ProgressDialog.show(context, "Searching Data", "Searching data from the server.",  true);
     }
 
@@ -105,7 +107,6 @@ public class PhotoSearchTask extends AsyncTask<String, Void, String> {
                 Photo photo = new Photo(photoID, photoSol, photoCameraName, photoURL, earthDate);
 
                 listener.onPhotoAvailable(photo);
-
             }
 
         } catch (JSONException ex) {
