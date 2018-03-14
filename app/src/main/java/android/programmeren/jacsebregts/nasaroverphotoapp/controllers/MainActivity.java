@@ -29,23 +29,20 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
     private RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     private ArrayList<Photo> photoList = new ArrayList<>();
 
-    private PictureDatabase pdb;
+    public PictureDatabase pdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate was called.");
+        //pdb = new PictureDatabase(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "content was loaded.");
-
-        pdb = new PictureDatabase(this);
-
         this.setTitle("NASA Mars Rover Photos");
 
-        getPictures();
         fillTheSpinner();
+        getPictures();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -53,8 +50,9 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
         recyclerView.setLayoutManager(layoutManager);
 
         photoAdapter = new PhotoAdapter(photoList);
-
         recyclerView.setAdapter(photoAdapter);
+
+
     }
 
     @Override
@@ -63,23 +61,24 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
 
         photoList.add(photo);
         photoAdapter.notifyDataSetChanged();
+        //pdb.getAllPictures();
 
-//        if (!photoList.contains(photo)) {
-//            photoList.add(photo);
-//            photoAdapter.notifyDataSetChanged();
-//
-//            pdb.addPicture(photo);
-//            Log.d(TAG, photo.getId() + "photo was added to the database.");
-//        } else {
-//            pdb.getAllPictures();
-//        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        Log.d(TAG, "onSaveInstanceState is aangeroepen");
+
+        savedInstanceState.putSerializable("PICTURE", photoList);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     public void getPictures() {
         Log.d(TAG, "getPictures was called.");
 
         String[] urls = new String[]
-                {"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=NO9JaYBrPOhgwVsv08W4EE9CHkTn3ZyIxY9M96sp"};
+                {"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=NO9JaYBrPOhgwVsv08W4EE9CHkTn3ZyIxY9M96sp"};
         PhotoSearchTask findPhotos = new PhotoSearchTask(this, this);
         findPhotos.execute(urls);
     }
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
 
         if (!cameraView.equals("ALL CAMERAS")) {
             String[] urls = new String[]
-                    {"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=hkOe3Z4NdnkxYI8FlnnDMCc1o4Xuu8GRiClCnwFt&camera=" +
+                    {"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=hkOe3Z4NdnkxYI8FlnnDMCc1o4Xuu8GRiClCnwFt&camera=" +
                             cameraView};
             System.out.println(urls[0]);
             PhotoSearchTask findPhotos = new PhotoSearchTask(this, this);
@@ -126,6 +125,12 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "onItemSelected was called.");
 
+        boolean check = true;
+
+        int size = photoList.size();
+        photoList.clear();
+        photoAdapter.notifyItemRangeRemoved(0, size);
+
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
         getPicturesByCameraView(item);
@@ -133,7 +138,15 @@ public class MainActivity extends AppCompatActivity implements OnPhotoAvailable,
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 
+
+//        // On selecting a spinner item
+//        String item = parent.getItemAtPosition(position).toString();
+//        getPicturesByCameraView(item);
+//
+//        // Showing selected spinner item
+//        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {

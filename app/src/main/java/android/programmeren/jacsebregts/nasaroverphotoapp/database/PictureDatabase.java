@@ -31,25 +31,52 @@ public class PictureDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        Log.d(TAG, "onCreate aangeroepen.");
+        Log.d(TAG, "onCreate was called.");
 
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
-                COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
-                COLUMN_SOL + "INTEGER," +
-                COLUMN_CAMERA + "TEXT NOT NULL," +
-                COLUMN_IMAGEURL + "TEXT NOT NULL UNIQUE," +
-                COLUMN_EARTHDATE + "TEXT NOT NULL" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_SOL + " INTEGER," +
+                COLUMN_CAMERA + " TEXT NOT NULL," +
+                COLUMN_IMAGEURL + " TEXT NOT NULL UNIQUE," +
+                COLUMN_EARTHDATE + " TEXT NOT NULL" +
                 ");");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        Log.d(TAG, "onUpgrade aangeroepen.");
+        Log.d(TAG, "onUpgrade was called.");
 
+        String query = "DROP TABLE " + TABLE_NAME;
+        sqLiteDatabase.execSQL(query);
+
+        onCreate(sqLiteDatabase);
     }
 
-    public void addPicture(Photo photo){
-        Log.d(TAG, "addPicture aangeroepen.");
+//    public boolean hasContent (){
+//        Log.d(TAG, "hasContent was called");
+//
+//        String query = "SELECT COUNT(*) FROM " + TABLE_NAME + ";";
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(query,null);
+//
+//        cursor.moveToFirst();
+//        int id = 0;
+//
+//        Log.d(TAG, "About to start looping the items in the cursor");
+//        while(!cursor.isAfterLast()) {
+//            id = cursor.getInt(0);
+//            cursor.moveToNext();
+//        }
+//
+//        if (id > 500){
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+    public void addPicture(Photo photo) {
+        Log.d(TAG, "addPicture was called.");
 
         //Attributen van person gaan we in de tabel zetten
         ContentValues values = new ContentValues();
@@ -64,14 +91,35 @@ public class PictureDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<Photo> getAllPictures(){
-        Log.d(TAG, "getAllPersons aangeroepen.");
+    public ArrayList<Photo> getCameraName(Photo photo) {
+        Log.d(TAG, "getCameraName was called.");
 
-        ArrayList<Photo> photos = new ArrayList<>();
+        String query = "SELECT " + COLUMN_CAMERA + " FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<Photo> photosByCamera = new ArrayList<>();
+
+        cursor.moveToFirst();
+        Log.d(TAG, "About to start looping the items in the cursor");
+        while (!cursor.isAfterLast()){
+            String cameraName = cursor.getString(cursor.getColumnIndex(COLUMN_CAMERA));
+
+            Photo camera = new Photo(photo.getId(), photo.getSol(), cameraName, photo.getImageURL(), photo.getEarthDate());
+            photosByCamera.add(camera);
+        }
+
+        return photosByCamera;
+    }
+
+    public ArrayList<Photo> getAllPictures() {
+        Log.d(TAG, "getAllPersons aangeroepen.");
 
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
+
+        ArrayList<Photo> photos = new ArrayList<>();
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
